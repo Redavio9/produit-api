@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,5 +21,37 @@ public class ProduitService {
 
     public Produit createProduit(Produit produit) {
         return produitRepository.save(produit);
+    }
+
+    public Produit getProduitById(long id) {
+        Optional<Produit> optionalProduit = produitRepository.findById(id);
+        if(optionalProduit.isEmpty()) {
+            throw new RuntimeException("Produit not found");
+
+        }
+        return optionalProduit.get();
+    }
+
+    public String deleteProduitById(long id) {
+        Optional<Produit> optionalProduit = produitRepository.findById(id);
+        if(optionalProduit.isEmpty()) {
+            throw new RuntimeException("Produit not found");
+        }
+        produitRepository.deleteById(id);
+        return "Deleted produit with id: " + id;
+    }
+
+    public Produit updateProduitById(long id, Produit produit) {
+        Optional<Produit> optionalProduit = produitRepository.findById(id);
+        if(optionalProduit.isEmpty()) {
+            throw new RuntimeException("Produit not found");
+        }
+
+        Produit produitAModifier = optionalProduit.get();
+        produitAModifier.setName(produit.getName());
+        produitAModifier.setPrice(produit.getPrice());
+
+        return produitRepository.save(produitAModifier);
+
     }
 }
