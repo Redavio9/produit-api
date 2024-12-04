@@ -1,5 +1,6 @@
 package com.produit.produitservice.service;
 
+import com.produit.produitservice.exceptions.ProduitNotFoundException;
 import com.produit.produitservice.model.Produit;
 import com.produit.produitservice.repository.ProduitRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,25 +24,28 @@ public class ProduitService {
         return produitRepository.save(produit);
     }
 
-    public Produit getProduitById(long id) {
+    public Produit getProduitById(long id)
+    {
         Optional<Produit> optionalProduit = produitRepository.findById(id);
-        if(optionalProduit.isEmpty()) {
-            throw new RuntimeException("Produit not found");
-
+        if(optionalProduit.isEmpty())
+        {
+            throw new ProduitNotFoundException("Desole produit inexistant");
         }
         return optionalProduit.get();
     }
 
     public String deleteProduitById(long id) {
         Optional<Produit> optionalProduit = produitRepository.findById(id);
-        if(optionalProduit.isEmpty()) {
+        if(optionalProduit.isEmpty())
+        {
             throw new RuntimeException("Produit not found");
         }
         produitRepository.deleteById(id);
         return "Deleted produit with id: " + id;
     }
 
-    public Produit updateProduitById(long id, Produit produit) {
+    public Produit updateProduitById(long id, Produit produit)
+    {
         Optional<Produit> optionalProduit = produitRepository.findById(id);
         if(optionalProduit.isEmpty()) {
             throw new RuntimeException("Produit not found");

@@ -1,6 +1,9 @@
 com/produit/produitservice/model/Produit$ProduitBuilder.class
+com/produit/produitservice/exceptions/ProduitNotFoundException.class
 com/produit/produitservice/ProduitApplication.class
 com/produit/produitservice/controller/ProduitController.class
+com/produit/produitservice/model/ErrorResponse.class
+com/produit/produitservice/exceptions/ProduitExceptionHandler.class
 com/produit/produitservice/model/Produit.class
 com/produit/produitservice/repository/ProduitRepository.class
 com/produit/produitservice/service/ProduitService.class
